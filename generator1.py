@@ -21,7 +21,7 @@ from generators.store.storename_generator import StoreNameGenerator
 # ----------------------------
 # Genereator Classes - item
 # ----------------------------
-# TODO:
+# TODO: 진행중...
 class ItemGenerator:
     def __init__(self):
         self.menus = load_data_menu()
@@ -29,7 +29,7 @@ class ItemGenerator:
     def generate(self):
         menu = random.choice(self.menus)
         return menu
-    
+
 class Item:
     def __init__(self, menu):
         self.menu = menu
@@ -44,7 +44,7 @@ def load_data_menu():
         for data in datas:
             menus.append(data.split(', '))
         return menus
-    
+
 # -------------------
 # Genereator Classes
 # -------------------
@@ -70,34 +70,11 @@ class StoreGenerator():
         return [self.name, self.type, self.address]
 
 # -------------------
-# Functions
-# -------------------
-def generate_data(number, data_type):
-    if data_type == "user":
-        data = generate_user(number)
-    elif data_type == "store":
-        data = generate_store(number)
-    return data
-
-def generate_user(number):
-    data = [UserGenerator().generate() for _ in range(number)]
-    return data
-
-def generate_store(number):
-    data = [StoreGenerator().generate() for _ in range(number)]
-    return data
-
-def load_data(file_path):
-    with open(f"{file_path}", "r") as file:
-        data = file.read().splitlines()
-    return data
-
-# -------------------
 # Input Functions
 # -------------------
 def input_data_type():
     data_type = ""
-    data_type = input("생성할 데이터 타입을 입력하세요(user or store): ").lower()
+    data_type = input("생성할 데이터 타입을 입력하세요(user or store): ").lower().strip()
     if not (data_type == "user" or data_type == "store"):
         print("지원하지 않는 데이터 타입입니다.")
         data_type = input_data_type()
@@ -114,12 +91,29 @@ def input_number():
     return number
 
 def input_format():
-    format = input("아웃풋 타입을 입력하세요(console or csv): ").lower()
+    format = input("아웃풋 타입을 입력하세요(console or csv): ").lower().strip()
     if format == "console" or format == "csv":
         return format
     else:
         print("지원하지 않는 아웃풋 타입입니다.")
         format = input_format()
+
+# -------------------
+# Generate Functions
+# -------------------
+def generate_data(number, data_type):
+    map = {
+        "user": UserGenerator,
+        "store": StoreGenerator
+    }
+    if data_type in map:
+        generator = map[data_type]
+        data = generate_data_append(generator, number)
+    return data
+
+def generate_data_append(generator, number):
+    data = [generator().generate() for _ in range(number)]
+    return data
 
 # -------------------
 # Print Functions
@@ -138,6 +132,14 @@ def save_csv(data):
     with open(f"{current_dir}/{data_type}.csv", "a", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(data)
+
+# -------------------
+# Load_data
+# -------------------
+def load_data(file_path):
+    with open(f"{file_path}", "r") as file:
+        data = file.read().splitlines()
+    return data
 
 # -------------------
 # Main
