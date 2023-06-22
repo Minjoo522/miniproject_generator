@@ -1,2 +1,2 @@
-{"name" : "Americano", "type" : "coffee", "price" : 3000}
-{"name" : "Milktea", "type" : "tea", "price" : 4000}
+Americano, coffee, 3000
+Milktea, tea, 4000
