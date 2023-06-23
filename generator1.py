@@ -16,26 +16,23 @@ from generators.user.birthdate_generator import BirthDateGenerator
 # store generator
 from generators.store.storename_generator import StoreNameGenerator
 
-# item generator
-
-# ----------------------------
-# Genereator Classes - item
-# ----------------------------
-# TODO: 진행중...
-class ItemGenerator:
-    def __init__(self):
-        self.menus = load_data_menu()
+# -------------------
+# Genereator Classes
+# -------------------
+class ItemGenerator(Generator):
+    menus = []
 
     def generate(self):
         menu = random.choice(self.menus)
-        return menu
+        print(menu)
+        return Item(menu)
 
 class Item:
     def __init__(self, menu):
         self.menu = menu
 
     def __str__(self):
-        return f"Name: {self.menu[0]}\nType: {self.menu[1]}\nPrice: {self.menu[2]}"
+        return f"Menu: {self.menu[0]}\nType: {self.menu[1]}\nPrice: {self.menu[2]}\n"
 
 def load_data_menu():
     with open("src/menus.txt", "r") as file:
@@ -45,10 +42,7 @@ def load_data_menu():
             menus.append(data.split(', '))
         return menus
 
-# -------------------
-# Genereator Classes
-# -------------------
-class UserGenerator():
+class UserGenerator(Generator):
     def __init__(self):
         self.birthday_generator = BirthDateGenerator()
         self.name = NameGenerator().generate()
@@ -58,9 +52,17 @@ class UserGenerator():
         self.address = AddressGenerator().generate()
 
     def generate(self):
-        return [self.name, self.gender, self.birthdate, self.age, self.address]
+        user = [self.name, self.gender, self.birthdate, self.age, self.address]
+        return  User(user)
+    
+class User:
+    def __init__(self, user):
+        self.user = user
 
-class StoreGenerator():
+    def __str__(self):
+        return f"Name: {self.user[0]}\nGender: {self.user[1]}\nBirthday: {self.user[2]}\nAge: {self.user[3]}\nAddress: {self.user[4]}\n"
+
+class StoreGenerator(Generator):
     def __init__(self):
         self.name = StoreNameGenerator().generate()
         self.type = self.name.split(" ")[0]
@@ -68,14 +70,22 @@ class StoreGenerator():
 
     def generate(self):
         return [self.name, self.type, self.address]
+    
+class Store:
+    def __init__(self, store):
+        self.store = store
+    
+    def __str__(self):
+        return f"Cafe Name: {self.store[0]}\nType: {self.store[1]}\nAddress: {self.store[2]}\n"
 
 # -------------------
 # Input Functions
 # -------------------
 def input_data_type():
+    map = ["user", "store", "item"]
     data_type = ""
-    data_type = input("생성할 데이터 타입을 입력하세요(user or store): ").lower().strip()
-    if not (data_type == "user" or data_type == "store"):
+    data_type = input("데이터 유형을 입력하세요 (User, Store 또는 Item): ").lower().strip()
+    if not (data_type in map):
         print("지원하지 않는 데이터 타입입니다.")
         data_type = input_data_type()
     return data_type
@@ -104,7 +114,8 @@ def input_format():
 def generate_data(number, data_type):
     map = {
         "user": UserGenerator,
-        "store": StoreGenerator
+        "store": StoreGenerator,
+        "item": ItemGenerator
     }
     if data_type in map:
         generator = map[data_type]
@@ -154,6 +165,8 @@ if __name__ == "__main__":
 
     StoreNameGenerator.cafe_types = load_data("src/cafe_types.txt")
     StoreNameGenerator.cafe_districts = load_data("src/cafe_districts.txt")
+
+    ItemGenerator.menus = load_data_menu()
     
     data_type = input_data_type()
     number = input_number()
