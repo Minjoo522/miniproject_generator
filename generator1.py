@@ -1,82 +1,18 @@
-import random
 import csv
 import os
-
-# abstractmethod
-from generators.generator import Generator
 
 # common generator
 from generators.common.address_generator import AddressGenerator
 
 # user generators
 from generators.user.name_generator import NameGenerator
-from generators.user.gender_generator import GenderGenerator
-from generators.user.birthdate_generator import BirthDateGenerator
 
 # store generator
 from generators.store.storename_generator import StoreNameGenerator
 
-# -------------------
-# Genereator Classes
-# -------------------
-class ItemGenerator(Generator):
-    menus = []
-
-    def generate(self):
-        menu = random.choice(self.menus)
-        print(menu)
-        return Item(menu)
-
-class Item:
-    def __init__(self, menu):
-        self.menu = menu
-
-    def __str__(self):
-        return f"Menu: {self.menu[0]}\nType: {self.menu[1]}\nPrice: {self.menu[2]}\n"
-
-def load_data_menu():
-    with open("src/menus.txt", "r") as file:
-        menus = []
-        datas = file.read().splitlines()
-        for data in datas:
-            menus.append(data.split(', '))
-        return menus
-
-class UserGenerator(Generator):
-    def __init__(self):
-        self.birthday_generator = BirthDateGenerator()
-        self.name = NameGenerator().generate()
-        self.gender = GenderGenerator().generate()
-        self.birthdate = self.birthday_generator.generate()
-        self.age = self.birthday_generator.age_generate()
-        self.address = AddressGenerator().generate()
-
-    def generate(self):
-        user = [self.name, self.gender, self.birthdate, self.age, self.address]
-        return  User(user)
-    
-class User:
-    def __init__(self, user):
-        self.user = user
-
-    def __str__(self):
-        return f"Name: {self.user[0]}\nGender: {self.user[1]}\nBirthday: {self.user[2]}\nAge: {self.user[3]}\nAddress: {self.user[4]}\n"
-
-class StoreGenerator(Generator):
-    def __init__(self):
-        self.name = StoreNameGenerator().generate()
-        self.type = self.name.split(" ")[0]
-        self.address = AddressGenerator().generate()
-
-    def generate(self):
-        return [self.name, self.type, self.address]
-    
-class Store:
-    def __init__(self, store):
-        self.store = store
-    
-    def __str__(self):
-        return f"Cafe Name: {self.store[0]}\nType: {self.store[1]}\nAddress: {self.store[2]}\n"
+from generators.user.user_generator import UserGenerator
+from generators.item.item_generator import ItemGenerator
+from generators.store.store_generator import StoreGenerator
 
 # -------------------
 # Input Functions
@@ -151,6 +87,14 @@ def load_data(file_path):
     with open(f"{file_path}", "r") as file:
         data = file.read().splitlines()
     return data
+
+def load_data_menu():
+    with open("src/menus.txt", "r") as file:
+        menus = []
+        datas = file.read().splitlines()
+        for data in datas:
+            menus.append(data.split(', '))
+        return menus
 
 # -------------------
 # Main
