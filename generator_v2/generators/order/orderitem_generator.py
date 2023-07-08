@@ -2,9 +2,10 @@ import uuid
 import random
 
 from models.orderitem import OrderItem
+from generators.generator import Generator
 from generators.order.read_csv_uuid import order_uuids, item_uuids
 
-class OrderItemGenerator:
+class OrderItemGenerator(Generator):
     def __init__(self):
         self.orders = order_uuids
         self.items = item_uuids

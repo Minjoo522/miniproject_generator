@@ -2,8 +2,9 @@ import uuid
 import random
 
 from models.item import Item
+from generators.generator import Generator
 
-class ItemGenerator:
+class ItemGenerator(Generator):
     def __init__(self):
         self.item_types = {
             "Coffee": {

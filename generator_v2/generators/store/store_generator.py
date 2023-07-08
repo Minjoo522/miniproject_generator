@@ -3,8 +3,9 @@ from generators.store.storename_generator import StoreNameTypeGenerator
 from generators.common.address_generator import AddressGenerator
 
 from models.store import Store
+from generators.generator import Generator
 
-class StoreGenerator:
+class StoreGenerator(Generator):
     def __init__(self):
         self.storename_generator = StoreNameTypeGenerator()
         self.address_generator = AddressGenerator()

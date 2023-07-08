@@ -6,8 +6,9 @@ from generators.user.birthdate_age_generator import BirthDateAgeGenerator
 from generators.common.address_generator import AddressGenerator
 
 from models.user import User
+from generators.generator import Generator
 
-class UserGenerator:
+class UserGenerator(Generator):
     def __init__(self):
         self.name_generator = NameGenerator()
         self.gender_generator = GenderGenerator()

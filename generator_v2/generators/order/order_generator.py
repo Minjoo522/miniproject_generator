@@ -3,9 +3,10 @@ import random
 from datetime import datetime, timedelta
 
 from models.order import Order
+from generators.generator import Generator
 from generators.order.read_csv_uuid import store_uuids, user_uuids
 
-class OrderGenerator:
+class OrderGenerator(Generator):
     def __init__(self):
         self.stores = store_uuids
         self.users = user_uuids
