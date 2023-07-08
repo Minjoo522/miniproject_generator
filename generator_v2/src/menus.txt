@@ -1,0 +1,7 @@
+Americano coffee, coffee, 3000
+Milktea, tea, 4000
+Watermelon Juice, Juice, 4000
+Strawberry Cake, Cake, 5500
+Espresso Coffee, Coffee, 2500
+Vanilla Cake, Cake, 5000
+Red Velvet Cake, Cake, 6500

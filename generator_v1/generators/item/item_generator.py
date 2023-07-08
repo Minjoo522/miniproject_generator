@@ -4,7 +4,8 @@ from generators.generator import Generator
 
 class ItemGenerator(Generator):
     menus = []
-    id = uuid.uuid4()
+    def __init__(self):
+        self.id = uuid.uuid4()
 
     def generate(self):
         item = [str(self.id)]

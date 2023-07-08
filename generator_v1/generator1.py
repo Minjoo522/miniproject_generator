@@ -1,15 +1,9 @@
 import csv
 import os
 
-# common generator
 from generators.common.address_generator import AddressGenerator
-
-# user generators
 from generators.user.name_generator import NameGenerator
-
-# store generator
 from generators.store.storename_generator import StoreNameGenerator
-
 from generators.user.user_generator import UserGenerator
 from generators.item.item_generator import ItemGenerator
 from generators.store.store_generator import StoreGenerator
