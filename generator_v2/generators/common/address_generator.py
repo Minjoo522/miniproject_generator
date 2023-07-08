@@ -1,10 +1,13 @@
 import random
 
+from generators.common.load_data import cities, gus
+
 class AddressGenerator():
-    cities = []
-    gus = []
-    roads = ["로", "길"]
-    ADDRESS_MAX = 99
+    def __init__(self):
+        self.cities = cities
+        self.gus = gus
+        self.roads = ["로", "길"]
+        self.ADDRESS_MAX = 99
 
     def generate(self):
         city = random.choice(self.cities)

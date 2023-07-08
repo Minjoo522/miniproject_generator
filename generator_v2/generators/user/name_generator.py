@@ -1,8 +1,11 @@
 import random
 
+from generators.common.load_data import first_names, last_names
+
 class NameGenerator:
-    first_names = []
-    last_names = []
+    def __init__(self):
+        self.first_names = first_names
+        self.last_names = last_names
 
     def generate(self):
         first_name = random.choice(self.first_names)

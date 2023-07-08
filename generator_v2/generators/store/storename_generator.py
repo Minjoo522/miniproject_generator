@@ -1,9 +1,12 @@
 import random
 
+from generators.common.load_data import cafe_types, cafe_districts
+
 class StoreNameTypeGenerator:
-    cafe_types = []
-    cafe_districts = []
-    BRANCH_MAX = 20
+    def __init__(self):
+        self.cafe_types = cafe_types
+        self.cafe_districts = cafe_districts
+        self.BRANCH_MAX = 20
 
     def generate(self):
         cafe_info = {}
