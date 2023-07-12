@@ -1,2 +1,5 @@
 .DS_STORE
 practice.py
+
+*.pyc
+__pycache__/
